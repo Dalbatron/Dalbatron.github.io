@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My iPhone Website</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    button {
+      width: 100%;
+      height: 14.28%;
+      background-color: black;
+      color: #707070;
+    }
+    .active {
+      background-color: #353535 !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="button-0" onclick="sendWebhook(0)">0</button>
+    <button class="button-1" onclick="sendWebhook(1)">1</button>
+    <button class="button-2" onclick="sendWebhook(2)">2</button>
+    <button class="button-3" onclick="sendWebhook(3)">3</button>
+    <button class="button-4" onclick="sendWebhook(4)">4</button>
+    <button class="button-5" onclick="sendWebhook(5)">5</button>
+    <button class="button-6" onclick="sendWebhook(6)">6</button>
+  </div>
+
+  <script>
+    // Keep track of the previously clicked button
+    let prevButton = null;
+
+    // Get all buttons
+    const buttons = document.querySelectorAll("button");
+
+    // Add event listener to each button
+    buttons.forEach(function(button) {
+      button.addEventListener("click", function() {
+        // Remove the active class from the previously clicked button, if there is one
+        if (prevButton) {
+          prevButton.classList.remove("active");
+        }
+
+        // Add the active class to the clicked button
+        this.classList.add("active");
+
+        // Set the clicked button as the new previously clicked button
+        prevButton = this;
+      });
+    });
+
+    function sendWebhook(number) {
+      // Create a new XMLHttpRequest object
+      const xhttp = new XMLHttpRequest();
+
+      // Define the URL for the GET request
+      const url = `https://maker.ifttt.com/trigger/vol${number}/with/key/cerOestpPJNvJ3KPy1Umid`;
+
+      // Set up the GET request
+      xhttp.open("GET", url, true);
+
+      // Send the GET request
+      xhttp.send();
+    }
+  </script>
+</body>
+</html>
